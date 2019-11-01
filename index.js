@@ -18,12 +18,13 @@ const getParks = function(parkChoice, maxResults=10){
     q: parkChoice,
     maxResults,
   }
+  console.log(params);
 
   const queryString = formatQueryParams(params)
   const url = searchURL  + '?' + queryString
   console.log(url);
 
-  fetch (url)
+  fetch(url)
       .then(response => {
         if(response.ok){
           return response.json();
@@ -42,13 +43,13 @@ const getParks = function(parkChoice, maxResults=10){
 
 const displayResults = function(responseJson){
   $('ul').empty()
-  
   for(let i = 0; i < responseJson.data.length; i++){
+    
     $('ul').append(`
-      <h1>hello</h1>
-<!--<li><p>${responseJson.data[i].addresses[0].line2}</p></li>
-// <li><p>${responseJson.data[i].directionsUrl}</p</li>
-// <li><p>${responseJson.data[i].description}</p></li> -->
+
+   
+    <li>${responseJson.data[i].directionsUrl}</li>  
+ <li><p>${responseJson.data[i].description}</p></li> 
 `)
   }
 }
