@@ -13,25 +13,27 @@ const formatQueryParams = function(params) {
 
 
 const getParks = function(parkChoice, maxResults=10){
+  const params = {
+    key: apiKey,
+    q: parkChoice,
+    maxResults,
+  }
 
-const params = {
-  api_key: apiKey,
-  q: parkChoice,
-  maxResults,
-}
+  const queryString = formatQueryParams(params)
+  const url = searchURL  + '?' + queryString
+  console.log(url);
 
-const queryString = formatQueryParams(params)
-const url = searchURL  + '?' + queryString
-console.log(url);
-
-fetch (url)
-    .then(response => {
-      if(response.ok){
-        return response.json();
-      }
-      throw new Error(response.statusText)
-    })
-    .then(responseJson => console.log(responseJson))
+  fetch (url)
+      .then(response => {
+        if(response.ok){
+          return response.json();
+        }
+        throw new Error(response.statusText)
+      })
+      .then(responseJson => { 
+        displayResults(responseJson)
+        console.log(responseJson)
+      })
 }
 
 
@@ -46,9 +48,7 @@ const displayResults = function(responseJson){
 // <li><p>${responseJson.data[i].description}</p></li> -->
 `)
   }
-
 }
-
 
 const watchButton = function() {
   $('#main-form').submit(e => {
