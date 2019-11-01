@@ -46,10 +46,9 @@ const displayResults = function(responseJson){
   for(let i = 0; i < responseJson.data.length; i++){
     
     $('ul').append(`
-
-   
-    <li>${responseJson.data[i].directionsUrl}</li>  
- <li><p>${responseJson.data[i].description}</p></li> 
+    <li><h3>${responseJson.data[i].fullName}</h3></li> 
+    <li id="ital">${responseJson.data[i].directionsUrl}</li>  
+    <li>${responseJson.data[i].description}</li> 
 `)
   }
 }
