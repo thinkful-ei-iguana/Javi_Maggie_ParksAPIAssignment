@@ -1,12 +1,14 @@
 
 
 const searchURL = 'https://developer.nps.gov/api/v1/parks';
-
 const apiKey = 'TZe9rx6fNdE3DBoYdU9dMgRXdoy9heOItmMyXdrW';
 
-// fetch!
-// return visual rep of results - creating html to display
-// watch button
+const formatQueryParams = function(params) {
+  const queryItems = Object.keys(params)
+    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+    return queryItems.join('&');
+}
+
 
 const getParks = function(parkChoice, maxResults=10){
 
@@ -33,7 +35,7 @@ fetch (url)
 
 const displayResults = function(responseJson){
   $('.list').empty()
-
+  
   for(let i = 0; i < responseJson.data.length; i++){
     $('.list').append(`
 <li>${responseJson.data[i].addresses.line2}</li>
@@ -45,15 +47,15 @@ const displayResults = function(responseJson){
 }
 
 
-
-
-
 const watchButton = function() {
   $('#main-form').submit(e => {
     e.preventDefault;
+    console.log("watchButton 1");
     let parkChoice = $('#park-input').val();
     let maxResults = $('#num-of-results').val();
     getParks(parkChoice, maxResults);
-    
+    console.log("watchButton 2");
   });
 }
+
+$(watchButton);
