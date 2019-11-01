@@ -4,8 +4,10 @@ const searchURL = 'https://developer.nps.gov/api/v1/parks';
 const apiKey = 'TZe9rx6fNdE3DBoYdU9dMgRXdoy9heOItmMyXdrW';
 
 const formatQueryParams = function(params) {
+  
   const queryItems = Object.keys(params)
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+  console.log(queryItems)
     return queryItems.join('&');
 }
 
@@ -13,7 +15,7 @@ const formatQueryParams = function(params) {
 const getParks = function(parkChoice, maxResults=10){
 
 const params = {
-  key: apiKey,
+  api_key: apiKey,
   q: parkChoice,
   maxResults,
 }
@@ -34,13 +36,14 @@ fetch (url)
 
 
 const displayResults = function(responseJson){
-  $('.list').empty()
+  $('ul').empty()
   
   for(let i = 0; i < responseJson.data.length; i++){
-    $('.list').append(`
-<li>${responseJson.data[i].addresses.line2}</li>
-<li>${responseJson.data[i].directionsUrl}</li>
-<li>${responseJson.data[i].description}</li>
+    $('ul').append(`
+      <h1>hello</h1>
+<!--<li><p>${responseJson.data[i].addresses[0].line2}</p></li>
+// <li><p>${responseJson.data[i].directionsUrl}</p</li>
+// <li><p>${responseJson.data[i].description}</p></li> -->
 `)
   }
 
@@ -49,7 +52,7 @@ const displayResults = function(responseJson){
 
 const watchButton = function() {
   $('#main-form').submit(e => {
-    e.preventDefault;
+    e.preventDefault();
     console.log("watchButton 1");
     let parkChoice = $('#park-input').val();
     let maxResults = $('#num-of-results').val();
