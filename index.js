@@ -11,41 +11,41 @@ const formatQueryParams = function(params) {
 
 
 const getParks = function(parkChoice, maxResults=10){
+  const params = {
+    key: apiKey,
+    q: parkChoice,
+    maxResults,
+  }
 
-const params = {
-  key: apiKey,
-  q: parkChoice,
-  maxResults,
-}
+  const queryString = formatQueryParams(params)
+  const url = searchURL  + '?' + queryString
+  console.log(url);
 
-const queryString = formatQueryParams(params)
-const url = searchURL  + '?' + queryString
-console.log(url);
-
-fetch (url)
-    .then(response => {
-      if(response.ok){
-        return response.json();
-      }
-      throw new Error(response.statusText)
-    })
-    .then(responseJson => console.log(responseJson))
+  fetch (url)
+      .then(response => {
+        if(response.ok){
+          return response.json();
+        }
+        throw new Error(response.statusText)
+      })
+      .then(responseJson => { 
+        displayResults(responseJson)
+        console.log(responseJson)
+      })
 }
 
 
 const displayResults = function(responseJson){
   $('.list').empty()
-  
+
   for(let i = 0; i < responseJson.data.length; i++){
     $('.list').append(`
-<li>${responseJson.data[i].addresses.line2}</li>
-<li>${responseJson.data[i].directionsUrl}</li>
-<li>${responseJson.data[i].description}</li>
-`)
+    <li>${responseJson.data[i].addresses.line2}</li>
+    <li>${responseJson.data[i].directionsUrl}</li>
+    <li>${responseJson.data[i].description}</li>
+    `)
   }
-
 }
-
 
 const watchButton = function() {
   $('#main-form').submit(e => {
