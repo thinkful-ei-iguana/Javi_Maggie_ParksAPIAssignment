@@ -14,7 +14,7 @@ const formatQueryParams = function(params) {
 
 const getParks = function(parkChoice, maxResults=10){
   const params = {
-    key: apiKey,
+    api_key: apiKey,
     q: parkChoice,
     maxResults,
   }
@@ -33,6 +33,9 @@ const getParks = function(parkChoice, maxResults=10){
       .then(responseJson => { 
         displayResults(responseJson)
         console.log(responseJson)
+      })
+      .catch (err => {
+        $('.err-msg').text(`Something is not right: ${err.message}`);
       })
 }
 
